@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Historias de la Oficina Infernal</title>
+  <!-- Importar la fuente gótica UnifrakturMaguntia desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #000;
@@ -23,9 +25,10 @@
     .titulo {
       font-size: 3em;
       color: #ff3333;
-      font-family: "Old English Text MT", "Papyrus", fantasy;
+      font-family: 'UnifrakturMaguntia', serif; /* Fuente gótica */
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
       margin: 0;
+      line-height: 1; /* Ajuste para mejorar la legibilidad */
     }
     .subtitulo {
       font-size: 1.5em;
@@ -60,13 +63,13 @@
     }
     .comic-container img,
     .comic-container video {
-      max-width: 600px; /* Reducido de 100% a 600px para que no sea tan grande */
-      width: 100%; /* Asegura que se ajuste dentro del max-width */
+      max-width: 600px;
+      width: 100%;
       height: auto;
       border: 2px solid #ff3333;
       border-radius: 4px;
-      margin: 10px auto; /* Centrado horizontalmente */
-      display: block; /* Para que margin: auto funcione */
+      margin: 10px auto;
+      display: block;
       box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
       animation-delay: 0.3s;
     }
@@ -217,10 +220,10 @@
       if (comic.video) {
         const video = document.createElement('video');
         video.controls = true;
-        video.autoplay = true; // Reproducción automática
-        video.muted = true; // Silenciado para cumplir con políticas de navegadores
-        video.loop = true; // Repetir el video
-        video.style.animationDelay = '0.0s';
+        video.autoplay = true;
+        video.muted = true;
+        video.loop = true;
+        video.style.animationDelay = '0.4s';
         video.innerHTML = `
           <source src="${comic.video}" type="video/mp4">
           Tu navegador no soporta videos.
