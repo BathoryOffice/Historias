@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Historias de la Oficina Infernal</title>
+  <!-- Importar la fuente gótica UnifrakturMaguntia desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    .header {
+      background: radial-gradient(circle at center, #2a0000, #000);
+      padding: 40px 20px;
+      border-bottom: 2px solid #ff3333;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      margin-bottom: 30px;
+    }
+    .titulo {
+      font-size: 3em;
+      color: #ff3333;
+      font-family: 'UnifrakturMaguntia', serif; /* Fuente gótica */
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+      margin: 0;
+      line-height: 1; /* Ajuste para mejorar la legibilidad */
+    }
+    .subtitulo {
+      font-size: 1.5em;
+      color: #ff6666;
+      font-style: italic;
+      margin: 8px 0;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .comic-container {
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      background: #1a0000;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      overflow: hidden;
+    }
+    .comic-title,
+    .comic-description,
+    .comic-container img,
+    .comic-container video {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .comic-title {
+      font-size: 2em;
+      color: #ff6666;
+      font-weight: bold;
+      margin-bottom: 15px;
+      animation-delay: 0.1s;
+    }
+    .comic-container img,
+    .comic-container video {
+      max-width: 600px;
+      width: 100%;
+      height: auto;
+      border: 2px solid #ff3333;
+      border-radius: 4px;
+      margin: 10px auto;
+      display: block;
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+      animation-delay: 0.3s;
+    }
+    .comic-description {
+      font-size: 1em;
+      color: #ddd;
+      line-height: 1.4;
+      max-width: 600px;
+      margin: 15px auto 0 auto;
+      animation-delay: 0.5s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .navigation {
+      margin: 20px 0;
+    }
+    .nav-button {
+      background: linear-gradient(#ff3333, #cc0000);
+      color: #fff;
+      padding: 8px 15px;
+      text-decoration: none;
+      border-radius: 4px;
+      margin: 4px;
+      font-weight: bold;
+      display: inline-block;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+    }
+    .nav-button.disabled {
+      background: #555;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .texto {
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 1.1em;
+      color: #ccc;
+      line-height: 1.5;
+    }
+    .contacto {
+      margin: 20px 0;
+      font-size: 1.2em;
+      color: #ddd;
+    }
+    .contacto a {
+      color: #ff3333;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .contacto a:hover {
+      color: #ff6666;
+      text-decoration: underline;
+    }
+    .separator {
+      width: 40%;
+      margin: 20px auto;
+      border-top: 1px solid #ff3333;
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="titulo">Historias de la Oficina Infernal</div>
+    <div class="subtitulo">Risas desde el Abismo Laboral</div>
+  </div>
+
+  <div class="comic-container" id="comic-content"></div>
+
+  <div class="navigation" id="navigation"></div>
+
+  <div class="separator"></div>
+
+  <div class="texto">
+    <p>¡Bienvenidos al lado oscuro de la oficina! Aquí encontrarás historias que capturan el caos y las risas del día a día laboral, con un toque infernal.</p>
+  </div>
+
+  <div class="separator"></div>
+
+  <div class="contacto">
+    <p>¿Quieres colaborar o sugerir ideas? <a href="https://wa.me/5493413552108" target="_blank">Contáctanos: +54 9 341 355-2108</a></p>
+  </div>
+
+  <script>
+    const comics = [
+      {
+        title: "No seamos sucios!",
+        images: ["comics/1.1.png", "comics/1.2.png"],
+        video: null,
+        description: "NO SEAMOS COCHINOS! P.D: Queremos aumentos :)"
+      },
+      {
+        title: "GRAAAAHHH",
+        images: ["comics/2.png"],
+        video: null,
+        description: "¿Qué está pasando en el fondo del pasillo??!?!?!"
+      },
+      {
+        title: "Normas ISO",
+        images: ["comics/3.png"],
+        video: null,
+        description: "¿Hacía falta subirse así a la mesa??"
+      },
+      {
+        title: "Hoy es viernes",
+        images: null,
+        video: "comics/4.mp4",
+        description: "Teorias de que pasa los viernes?"
+      },
+      {
+        title: "Home Office",
+        images: null,
+        video: "comics/5.mp4",
+        description: "Donde aplico para homeoffice lunes y viernes???"
+      }
+    ];
+
+    let currentComicIndex = comics.length - 1;
+
+    function showComic(index) {
+      if (index < 0 || index >= comics.length) return;
+      currentComicIndex = index;
+      const comic = comics[index];
+      const contentDiv = document.getElementById('comic-content');
+
+      let content = `
+        <h2 class="comic-title">${comic.title}</h2>
+      `;
+
+      if (comic.images && Array.isArray(comic.images)) {
+        comic.images.forEach((image, i) => {
+          const img = new Image();
+          img.src = image;
+          img.onerror = () => {
+            console.error(`Error al cargar la imagen: ${image}`);
+          };
+          content += `<img src="${image}" alt="${comic.title} - Página ${i + 1}" style="animation-delay: ${0.3 + i * 0.2}s">`;
+        });
+      }
+
+      if (comic.video) {
+        const video = document.createElement('video');
+        video.controls = true;
+        video.autoplay = true;
+        video.muted = true;
+        video.loop = true;
+        video.style.animationDelay = '0.4s';
+        video.innerHTML = `
+          <source src="${comic.video}" type="video/mp4">
+          Tu navegador no soporta videos.
+        `;
+        video.onerror = () => {
+          console.error(`Error al cargar el video: ${comic.video}`);
+        };
+        content += video.outerHTML;
+      }
+
+      content += `
+        <p class="comic-description">${comic.description}</p>
+      `;
+
+      contentDiv.innerHTML = content;
+      updateNavigation();
+    }
+
+    function updateNavigation() {
+      const navDiv = document.getElementById('navigation');
+      let buttons = `
+        <a class="nav-button ${currentComicIndex === 0 ? 'disabled' : ''}" onclick="${currentComicIndex === 0 ? '' : 'showComic(0)'}">Primera</a>
+        <a class="nav-button ${currentComicIndex === 0 ? 'disabled' : ''}" onclick="${currentComicIndex === 0 ? '' : 'showComic(currentComicIndex - 1)'}">Anterior</a>
+      `;
+      for (let i = 0; i < comics.length; i++) {
+        buttons += `<a class="nav-button ${i === currentComicIndex ? 'disabled' : ''}" onclick="${i === currentComicIndex ? '' : 'showComic(' + i + ')'}">${i + 1}</a>`;
+      }
+      buttons += `
+        <a class="nav-button ${currentComicIndex === comics.length - 1 ? 'disabled' : ''}" onclick="${currentComicIndex === comics.length - 1 ? '' : 'showComic(currentComicIndex + 1)'}">Siguiente</a>
+        <a class="nav-button ${currentComicIndex === comics.length - 1 ? 'disabled' : ''}" onclick="${currentComicIndex === comics.length - 1 ? '' : 'showComic(comics.length - 1)'}">Última</a>
+      `;
+      navDiv.innerHTML = buttons;
+    }
+
+    showComic(currentComicIndex);
+  </script>
+</body>
+</html>
