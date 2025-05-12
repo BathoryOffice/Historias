@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 
   <style>
-    /* ——————— Tu CSS existente ——————— */
+    /* — Tu CSS existente — */
     body { background-color: #000; color: #fff; font-family: 'Arial', sans-serif; text-align: center; margin: 0; padding: 20px; }
     .header { background: radial-gradient(circle at center, #2a0000, #000); padding: 40px 20px; border-bottom: 2px solid #ff3333; box-shadow: 0 0 20px rgba(255,0,0,0.5); margin-bottom: 30px; }
     .titulo { font-size: 3em; color: #ff3333; font-family: 'UnifrakturMaguntia', serif; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin: 0; line-height: 1; }
@@ -29,7 +29,7 @@
     .contacto a:hover { color: #ff6666; text-decoration: underline; }
     .separator { width: 40%; margin: 20px auto; border-top: 1px solid #ff3333; box-shadow: 0 0 8px rgba(255,0,0,0.5); }
 
-    /* ——————— Estilos de comentarios ——————— */
+    /* — Estilos de comentarios — */
     .comments { max-width: 600px; margin: 40px auto; text-align: left; }
     .comments h3 { color: #ff3333; font-family: 'UnifrakturMaguntia', serif; }
     .comment { background: #1a0000; border: 1px solid #ff3333; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
@@ -49,7 +49,7 @@
   <div class="comic-container" id="comic-content"></div>
   <div class="navigation" id="navigation"></div>
 
-  <!-- ——————— Comentarios ——————— -->
+  <!-- Comentarios -->
   <div class="comments" id="comments-section">
     <h3>Comentarios</h3>
     <div id="comments-list">Cargando comentarios…</div>
@@ -69,9 +69,8 @@
     <p>¿Quieres colaborar o sugerir ideas? <a href="https://wa.me/5493413552108" target="_blank">Contáctanos: +54 9 341 355-2108</a></p>
   </div>
 
-  <!-- ——————— Firebase + Lógica de comentarios ——————— -->
+  <!-- Firebase + lógica modular + exposición global -->
   <script type="module">
-    // 1) Imports modular v9+
     import { initializeApp }     from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
     import { getAnalytics }      from "https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics.js";
     import {
@@ -79,7 +78,6 @@
       onValue
     } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
-    // 2) Tu configuración de Firebase (¡la clave ya la tienes!)
     const firebaseConfig = {
       apiKey: "AIzaSyBSigzQvUmzQXtNlh5qB-kv9FnAJcyUOQc",
       authDomain: "bathoryoffice.firebaseapp.com",
@@ -91,12 +89,10 @@
       measurementId: "G-LDNCM0K4D9"
     };
 
-    // 3) Inicializa Firebase
     const app       = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db        = getDatabase(app);
 
-    // 4) Tus cómics y navegación
     const comics = [
       { title:"No seamos sucios!", images:["comics/1.1.png","comics/1.2.png"], video:null, description:"NO SEAMOS COCHINOS! P.D: Queremos aumentos :)" },
       { title:"GRAAAAHHH",         images:["comics/2.png"],           video:null, description:"¿Qué está pasando en el fondo del pasillo??!?!" },
@@ -107,7 +103,7 @@
     let currentComicIndex = comics.length - 1;
 
     function showComic(i) {
-      if (i<0||i>=comics.length) return;
+      if (i < 0 || i >= comics.length) return;
       currentComicIndex = i;
       const c = comics[i];
       let html = `<h2 class="comic-title">${c.title}</h2>`;
@@ -123,17 +119,17 @@
 
     function updateNav() {
       const nav = document.getElementById('navigation');
-      let btns = `<a class="nav-button ${currentComicIndex===0?'disabled':''}" onclick="${currentComicIndex>0?'showComic(0)':''}">Primera</a>`;
+      let btns = '';
+      btns += `<a class="nav-button ${currentComicIndex===0?'disabled':''}" onclick="${currentComicIndex>0?'showComic(0)':''}">Primera</a>`;
       btns += `<a class="nav-button ${currentComicIndex===0?'disabled':''}" onclick="${currentComicIndex>0?'showComic(currentComicIndex-1)':''}">Anterior</a>`;
-      comics.forEach((_,i)=> {
-        btns += `<a class="nav-button ${i===currentComicIndex?'disabled':''}" onclick="${i!==currentComicIndex?`showComic(${i})`:''}">${i+1}</a>`;
+      comics.forEach((_, idx) => {
+        btns += `<a class="nav-button ${idx===currentComicIndex?'disabled':''}" onclick="${idx!==currentComicIndex?`showComic(${idx})`:''}">${idx+1}</a>`;
       });
       btns += `<a class="nav-button ${currentComicIndex===comics.length-1?'disabled':''}" onclick="${currentComicIndex< comics.length-1?'showComic(currentComicIndex+1)':''}">Siguiente</a>`;
       btns += `<a class="nav-button ${currentComicIndex===comics.length-1?'disabled':''}" onclick="${currentComicIndex< comics.length-1?'showComic(comics.length-1)':''}">Última</a>`;
       nav.innerHTML = btns;
     }
 
-    // 5) Carga comentarios de este cómic
     function loadComments(idx) {
       const list = document.getElementById('comments-list');
       list.innerHTML = 'Cargando comentarios…';
@@ -158,7 +154,6 @@
       });
     }
 
-    // 6) Formulario de envío
     document.getElementById('comment-form')
       .addEventListener('submit', e => {
         e.preventDefault();
@@ -172,14 +167,17 @@
           });
       });
 
-    // Escape simple para prevenir XSS
     function escapeHTML(s) {
       return s.replace(/[&<>"']/g, c =>
         ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])
       );
     }
 
-    // Arranque
+    // — Exponemos las funciones al global para que los onclick sigan funcionando —
+    window.showComic = showComic;
+    window.updateNav = updateNav;
+
+    // — Inicializamos vista —
     showComic(currentComicIndex);
   </script>
 </body>
