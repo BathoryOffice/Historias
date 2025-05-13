@@ -8,8 +8,31 @@
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 
   <style>
-    /* — Tu CSS existente — */
-    body { background-color: #000; color: #fff; font-family: 'Arial', sans-serif; text-align: center; margin: 0; padding: 20px; }
+    body { background-color: #000; color: #fff; font-family: 'Arial', sans-serif; text-align: center; margin: 0; padding: 0; }
+    .splash {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at center, #2a0000, #000);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; padding: 20px;
+    }
+    .splash .mensaje {
+      font-family: 'UnifrakturMaguntia', serif;
+      font-size: 2em; color: #ff3333;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+      margin-bottom: 30px;
+    }
+    .btn-entrar {
+      background: linear-gradient(#ff3333,#cc0000);
+      color: #fff; padding: 15px 30px; font-size: 1.2em;
+      border: none; border-radius: 4px;
+      cursor: pointer; box-shadow: 0 0 10px rgba(255,0,0,0.7);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-entrar:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(255,0,0,0.9); }
+
+    /* Contenido principal oculto inicialmente */
+    #main-content { display: none; }
+
     .header { background: radial-gradient(circle at center, #2a0000, #000); padding: 40px 20px; border-bottom: 2px solid #ff3333; box-shadow: 0 0 20px rgba(255,0,0,0.5); margin-bottom: 30px; }
     .titulo { font-size: 3em; color: #ff3333; font-family: 'UnifrakturMaguntia', serif; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin: 0; line-height: 1; }
     .subtitulo { font-size: 1.5em; color: #ff6666; font-style: italic; margin: 8px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
@@ -28,55 +51,56 @@
     .contacto a { color: #ff3333; text-decoration: none; font-weight: bold; transition: color .3s; }
     .contacto a:hover { color: #ff6666; text-decoration: underline; }
     .separator { width: 40%; margin: 20px auto; border-top: 1px solid #ff3333; box-shadow: 0 0 8px rgba(255,0,0,0.5); }
-
-    /* — Estilos de comentarios — */
     .comments { max-width: 600px; margin: 40px auto; text-align: left; }
     .comments h3 { color: #ff3333; font-family: 'UnifrakturMaguntia', serif; }
     .comment { background: #1a0000; border: 1px solid #ff3333; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
     .comment b { color: #ff6666; }
     .comment p { color: #ddd; margin: 5px 0 0; }
-    .comment-form input,
-    .comment-form textarea { width: 100%; padding: 8px; margin: 5px 0; border-radius: 4px; border: 1px solid #555; background: #000; color: #fff; }
+    .comment-form input, .comment-form textarea { width: 100%; padding: 8px; margin: 5px 0; border-radius: 4px; border: 1px solid #555; background: #000; color: #fff; }
     .comment-form button { background: #ff3333; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="titulo">Historias de la Oficina Infernal</div>
-    <div class="subtitulo">Risas desde el Abismo Laboral</div>
+  <!-- Pantalla de inicio -->
+  <div class="splash" id="splash-screen">
+    <div class="mensaje">No seas rata: que no llegue al pasillo. Que no te enganchen viéndolo</div>
+    <button class="btn-entrar" id="btn-enter">Entrar</button>
   </div>
 
-  <div class="comic-container" id="comic-content"></div>
-  <div class="navigation" id="navigation"></div>
+  <!-- Contenido principal -->
+  <div id="main-content">
+    <div class="header">
+      <div class="titulo">Historias de la Oficina Infernal</div>
+      <div class="subtitulo">Risas desde el Abismo Laboral</div>
+    </div>
 
-  <!-- Comentarios -->
-  <div class="comments" id="comments-section">
-    <h3>Comentarios</h3>
-    <div id="comments-list">Cargando comentarios…</div>
-    <form id="comment-form" class="comment-form">
-      <input type="text" id="comment-name" placeholder="Tu nombre" required />
-      <textarea id="comment-text" placeholder="Tu comentario" rows="3" required></textarea>
-      <button type="submit">Publicar comentario</button>
-    </form>
+    <div class="comic-container" id="comic-content"></div>
+    <div class="navigation" id="navigation"></div>
+
+    <div class="comments" id="comments-section">
+      <h3>Comentarios</h3>
+      <div id="comments-list">Cargando comentarios…</div>
+      <form id="comment-form" class="comment-form">
+        <input type="text" id="comment-name" placeholder="Tu nombre" required />
+        <textarea id="comment-text" placeholder="Tu comentario" rows="3" required></textarea>
+        <button type="submit">Publicar comentario</button>
+      </form>
+    </div>
+
+    <div class="separator"></div>
+    <div class="texto">
+      <p>¡Bienvenidos al lado oscuro de la oficina! Aquí encontrarás historias que capturan el caos y las risas del día a día laboral, con un toque infernal.</p>
+    </div>
+    <div class="separator"></div>
+    <div class="contacto">
+      <p>¿Quieres colaborar o sugerir ideas? <a href="https://wa.me/5493413552108" target="_blank">Contáctanos: +54 9 341 355-2108</a></p>
+    </div>
   </div>
 
-  <div class="separator"></div>
-  <div class="texto">
-    <p>¡Bienvenidos al lado oscuro de la oficina! Aquí encontrarás historias que capturan el caos y las risas del día a día laboral, con un toque infernal.</p>
-  </div>
-  <div class="separator"></div>
-  <div class="contacto">
-    <p>¿Quieres colaborar o sugerir ideas? <a href="https://wa.me/5493413552108" target="_blank">Contáctanos: +54 9 341 355-2108</a></p>
-  </div>
-
-  <!-- Firebase + lógica modular + exposición global -->
   <script type="module">
     import { initializeApp }     from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
     import { getAnalytics }      from "https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics.js";
-    import {
-      getDatabase, ref, push,
-      onValue
-    } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBSigzQvUmzQXtNlh5qB-kv9FnAJcyUOQc",
@@ -95,24 +119,31 @@
 
     const comics = [
       { title:"No seamos sucios!", images:["comics/1.1.png","comics/1.2.png"], video:null, description:"NO SEAMOS COCHINOS! P.D: Queremos aumentos :)" },
-      { title:"GRAAAAHHH",         images:["comics/2.png"],           video:null, description:"¿Qué está pasando en el fondo del pasillo??!?!" },
-      { title:"Normas ISO",        images:["comics/3.png"],           video:null, description:"¿Hacía falta subirse así a la mesa??" },
-      { title:"Hoy es viernes",    images:null,                       video:"comics/4.mp4", description:"Teorías de qué pasa los viernes?" },
-      { title:"Home Office",       images:null,                       video:"comics/5.mp4", description:"¿Dónde aplico para homeoffice lunes y viernes???" },
-      { title:"Engendro",       images:null,                       video:"comics/6.mp4", description:"Sospecheso que de esta manera llego al mundo, sino no se explica" }
+      { title:"GRAAAAHHH", images:["comics/2.png"], video:null, description:"¿Qué está pasando en el fondo del pasillo??!?!" },
+      { title:"Normas ISO", images:["comics/3.png"], video:null, description:"¿Hacía falta subirse así a la mesa??" },
+      { title:"Hoy es viernes", images:null, video:"comics/4.mp4", description:"Teorías de qué pasa los viernes?" },
+      { title:"Home Office", images:null, video:"comics/5.mp4", description:"¿Dónde aplico para homeoffice lunes y viernes???" },
+      { title:"Engendro", images:null, video:"comics/6.mp4", description:"Sospecheso que de esta manera llego al mundo, sino no se explica" }
     ];
     let currentComicIndex = comics.length - 1;
+
+    // Gestión splash
+    const splash = document.getElementById('splash-screen');
+    const mainContent = document.getElementById('main-content');
+    document.getElementById('btn-enter').addEventListener('click', () => {
+      splash.style.display = 'none';
+      mainContent.style.display = 'block';
+      showComic(currentComicIndex);
+    });
 
     function showComic(i) {
       if (i < 0 || i >= comics.length) return;
       currentComicIndex = i;
       const c = comics[i];
-      let html = `<h2 class="comic-title">${c.title}</h2>`;
-      if (c.images)  c.images.forEach((src,j)=>
-        html += `<img src="${src}" alt="" style="animation-delay:${0.3 + j*0.2}s">`
-      );
-      if (c.video)   html += `<video controls autoplay muted loop style="animation-delay:0.4s"><source src="${c.video}" type="video/mp4"></video>`;
-      html += `<p class="comic-description">${c.description}</p>`;
+      let html = `<h2 class=\"comic-title\">${c.title}</h2>`;
+      if (c.images) c.images.forEach((src,j)=> html += `<img src=\"${src}\" alt=\"\" style=\"animation-delay:${0.3 + j*0.2}s\">`);
+      if (c.video) html += `<video controls autoplay muted loop style=\"animation-delay:0.4s\"><source src=\"${c.video}\" type=\"video/mp4\"></video>`;
+      html += `<p class=\"comic-description\">${c.description}</p>`;
       document.getElementById('comic-content').innerHTML = html;
       updateNav();
       loadComments(i);
@@ -121,13 +152,11 @@
     function updateNav() {
       const nav = document.getElementById('navigation');
       let btns = '';
-      btns += `<a class="nav-button ${currentComicIndex===0?'disabled':''}" onclick="${currentComicIndex>0?'showComic(0)':''}">Primera</a>`;
-      btns += `<a class="nav-button ${currentComicIndex===0?'disabled':''}" onclick="${currentComicIndex>0?'showComic(currentComicIndex-1)':''}">Anterior</a>`;
-      comics.forEach((_, idx) => {
-        btns += `<a class="nav-button ${idx===currentComicIndex?'disabled':''}" onclick="${idx!==currentComicIndex?`showComic(${idx})`:''}">${idx+1}</a>`;
-      });
-      btns += `<a class="nav-button ${currentComicIndex===comics.length-1?'disabled':''}" onclick="${currentComicIndex< comics.length-1?'showComic(currentComicIndex+1)':''}">Siguiente</a>`;
-      btns += `<a class="nav-button ${currentComicIndex===comics.length-1?'disabled':''}" onclick="${currentComicIndex< comics.length-1?'showComic(comics.length-1)':''}">Última</a>`;
+      btns += `<a class=\"nav-button ${currentComicIndex===0?'disabled':''}\" onclick=\"${currentComicIndex>0?'showComic(0)':''}\">Primera</a>`;
+      btns += `<a class=\"nav-button ${currentComicIndex===0?'disabled':''}\" onclick=\"${currentComicIndex>0?'showComic(currentComicIndex-1)':''}\">Anterior</a>`;
+      comics.forEach((_, idx) => btns += `<a class=\"nav-button ${idx===currentComicIndex?'disabled':''}\" onclick=\"${idx!==currentComicIndex?`showComic(${idx})`:''}\">${idx+1}</a>`);
+      btns += `<a class=\"nav-button ${currentComicIndex===comics.length-1?'disabled':''}\" onclick=\"${currentComicIndex< comics.length-1?'showComic(currentComicIndex+1)':''}\">Siguiente</a>`;
+      btns += `<a class=\"nav-button ${currentComicIndex===comics.length-1?'disabled':''}\" onclick=\"${currentComicIndex< comics.length-1?'showComic(comics.length-1)':''}\">Última</a>`;
       nav.innerHTML = btns;
     }
 
@@ -139,47 +168,31 @@
         const data = snap.val() || {};
         list.innerHTML = '';
         const keys = Object.keys(data);
-        if (!keys.length) {
-          list.innerHTML = '<p>No hay comentarios aún.</p>';
-          return;
-        }
-        keys.sort((a,b)=> data[a].timestamp - data[b].timestamp)
-            .forEach(k => {
+        if (!keys.length) return list.innerHTML = '<p>No hay comentarios aún.</p>';
+        keys.sort((a,b)=> data[a].timestamp - data[b].timestamp).forEach(k => {
           const c = data[k];
           const div = document.createElement('div');
           div.className = 'comment';
-          div.innerHTML = `<b>${escapeHTML(c.name)}</b> <small>${new Date(c.timestamp).toLocaleString()}</small>
-                           <p>${escapeHTML(c.text)}</p>`;
+          div.innerHTML = `<b>${escapeHTML(c.name)}</b> <small>${new Date(c.timestamp).toLocaleString()}</small><p>${escapeHTML(c.text)}</p>`;
           list.appendChild(div);
         });
       });
     }
 
-    document.getElementById('comment-form')
-      .addEventListener('submit', e => {
-        e.preventDefault();
-        const name = document.getElementById('comment-name').value.trim();
-        const text = document.getElementById('comment-text').value.trim();
-        if (!name || !text) return;
-        const comentariosRef = ref(db, `comentarios/${currentComicIndex}`);
-        push(comentariosRef, { name, text, timestamp: Date.now() })
-          .then(() => {
-            document.getElementById('comment-text').value = '';
-          });
-      });
+    document.getElementById('comment-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('comment-name').value.trim();
+      const text = document.getElementById('comment-text').value.trim();
+      if (!name || !text) return;
+      push(ref(db, `comentarios/${currentComicIndex}`), { name, text, timestamp: Date.now() })
+        .then(() => document.getElementById('comment-text').value = '');
+    });
 
     function escapeHTML(s) {
-      return s.replace(/[&<>"']/g, c =>
-        ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])
-      );
+      return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
 
-    // — Exponemos las funciones al global para que los onclick sigan funcionando —
-    window.showComic = showComic;
-    window.updateNav = updateNav;
-
-    // — Inicializamos vista —
-    showComic(currentComicIndex);
+    // Prevent initial comic load until entry
   </script>
 </body>
 </html>
