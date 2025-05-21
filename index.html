@@ -2,157 +2,614 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Historias cómicas de la oficina con un toque infernal. Cómics, videos y humor laboral."
+  />
+  <meta name="keywords" content="cómics, oficina, humor, infernal, historias de oficina" />
   <title>Historias de la Oficina Infernal</title>
+
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
-    body { background-color: #000; color: #fff; font-family: 'Arial', sans-serif; text-align: center; margin: 0; padding: 0; overflow: hidden; }
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: "Arial", sans-serif;
+      overflow: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
 
     /* Splash Screen */
     .splash {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed;
+      inset: 0;
       background: radial-gradient(circle at center, #2a0000, #000);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; padding: 20px; z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 999;
+      transition: opacity 0.5s ease;
     }
-    .splash .mensaje {
-      font-family: 'UnifrakturMaguntia', serif;
-      font-size: 2em; color: #ff3333;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+
+    .splash.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .ghosts {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .ghosts img {
+      position: absolute;
+      bottom: -150px;
+      width: 80px;
+      opacity: 0;
+      animation: floatUp 6s ease-in infinite;
+    }
+
+    .ghosts img:nth-child(1) {
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .ghosts img:nth-child(2) {
+      left: 30%;
+      animation-delay: 1.5s;
+    }
+
+    .ghosts img:nth-child(3) {
+      left: 50%;
+      animation-delay: 3s;
+    }
+
+    .ghosts img:nth-child(4) {
+      left: 70%;
+      animation-delay: 0.8s;
+    }
+
+    .ghosts img:nth-child(5) {
+      left: 90%;
+      animation-delay: 2.5s;
+    }
+
+    @keyframes floatUp {
+      0% {
+        bottom: -150px;
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      50% {
+        bottom: 20%;
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        bottom: 110%;
+        opacity: 0;
+        transform: scale(0.5);
+      }
+    }
+
+    .mensaje {
+      font-family: "UnifrakturMaguntia", serif;
+      font-size: 2em;
+      color: #ff3333;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
       margin-bottom: 30px;
-      position: relative; z-index: 12;
+      position: relative;
+      z-index: 1;
     }
+
     .btn-entrar {
-      background: linear-gradient(#ff3333,#cc0000);
-      color: #fff; padding: 15px 30px; font-size: 1.2em;
-      border: none; border-radius: 4px;
-      cursor: pointer; box-shadow: 0 0 10px rgba(255,0,0,0.7);
-      transition: transform .2s, box-shadow .2s;
-      position: relative; z-index: 12;
+      background: linear-gradient(#ff3333, #cc0000);
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      z-index: 1;
     }
-    .btn-entrar:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(255,0,0,0.9); }
 
-    /* Fantasmas animados con imagen */
-    .ghosts { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
-    .ghosts img { position: absolute; bottom: -150px; width: 80px; opacity: 0.8; animation: floatUp 6s ease-in infinite; }
-    .ghosts img:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .ghosts img:nth-child(2) { left: 30%; animation-delay: 1.5s; }
-    .ghosts img:nth-child(3) { left: 50%; animation-delay: 3s; }
-    .ghosts img:nth-child(4) { left: 70%; animation-delay: 0.8s; }
-    .ghosts img:nth-child(5) { left: 90%; animation-delay: 2.5s; }
-    @keyframes floatUp { 0% { bottom: -150px; opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } 100% { bottom: 110%; opacity: 0; transform: scale(0.5); } }
+    .btn-entrar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+    }
 
-    /* Contenido principal oculto inicialmente */
-    #main-content { display: none; }
+    /* Contenido principal (oculto al inicio) */
+    #main-content {
+      display: none;
+      padding: 20px;
+    }
 
-    /* Resto de estilos originales */
-    .header { background: radial-gradient(circle at center, #2a0000, #000); padding: 40px 20px; border-bottom: 2px solid #ff3333; box-shadow: 0 0 20px rgba(255,0,0,0.5); margin-bottom: 30px; }
-    .titulo { font-size: 3em; color: #ff3333; font-family: 'UnifrakturMaguntia', serif; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin: 0; line-height: 1; }
-    .subtitulo { font-size: 1.5em; color: #ff6666; font-style: italic; margin: 8px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-    .comic-container { max-width: 800px; margin: 0 auto 30px; background: #1a0000; padding: 25px; border-radius: 10px; box-shadow: 0 0 15px rgba(255,0,0,0.4); overflow: hidden; }
-    .comic-title, .comic-description, .comic-container img, .comic-container video { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.6s ease forwards; }
-    .comic-title { font-size: 2em; color: #ff6666; font-weight: bold; margin-bottom: 15px; animation-delay: 0.1s; }
-    .comic-container img, .comic-container video { max-width: 600px; width: 100%; height: auto; border: 2px solid #ff3333; border-radius: 4px; margin: 10px auto; display: block; box-shadow: 0 0 8px rgba(255,0,0,0.5); animation-delay: 0.3s; }
-    .comic-description { font-size: 1em; color: #ddd; line-height: 1.4; max-width: 600px; margin: 15px auto 0; animation-delay: 0.5s; }
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-    .navigation { margin: 20px 0; }
-    .nav-button { background: linear-gradient(#ff3333,#cc0000); color: #fff; padding: 8px 15px; text-decoration: none; border-radius: 4px; margin: 4px; font-weight: bold; cursor: pointer; transition: transform .2s, box-shadow .2s; }
-    .nav-button:hover { transform: scale(1.05); box-shadow: 0 0 8px rgba(255,0,0,0.8); }
-    .nav-button.disabled { background: #555; cursor: not-allowed; box-shadow: none; }
-    .texto { max-width: 600px; margin: 20px auto; font-size: 1.1em; color: #ccc; line-height: 1.5; }
-    .contacto { margin: 20px 0; font-size: 1.2em; color: #ddd; }
-    .contacto a { color: #ff3333; text-decoration: none; font-weight: bold; transition: color .3s; }
-    .contacto a:hover { color: #ff6666; text-decoration: underline; }
-    .separator { width: 40%; margin: 20px auto; border-top: 1px solid #ff3333; box-shadow: 0 0 8px rgba(255,0,0,0.5); }
-    .comments { max-width: 600px; margin: 40px auto; text-align: left; }
-    .comments h3 { color: #ff3333; font-family: 'UnifrakturMaguntia', serif; }
-    .comment { background: #1a0000; border: 1px solid #ff3333; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
-    .comment b { color: #ff6666; }
-    .comment p { color: #ddd; margin: 5px 0 0; }
-    .comment-form input, .comment-form textarea { width: 100%; padding: 8px; margin: 5px 0; border-radius: 4px; border: 1px solid #555; background: #000; color: #fff; }
-    .comment-form button { background: #ff3333; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+    header {
+      background: radial-gradient(circle at center, #2a0000, #000);
+      padding: 40px 20px;
+      border-bottom: 2px solid #ff3333;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      margin-bottom: 30px;
+    }
+
+    .titulo {
+      font-size: 3em;
+      color: #ff3333;
+      font-family: "UnifrakturMaguntia", serif;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+      margin: 0;
+      line-height: 1;
+    }
+
+    .subtitulo {
+      font-size: 1.5em;
+      color: #ff6666;
+      font-style: italic;
+      margin: 8px 0;
+      text-align: center; /* ← añadir esto */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Contenedor de cómics */
+    .comic-container {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      background: #1a0000;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      overflow: hidden;
+      aria-live: polite;
+    }
+
+    article.comic {
+      width: 100%;
+      margin-bottom: 2rem;
+      background: transparent;
+      padding: 0;
+    }
+
+    .comic-title {
+      font-size: 2em;
+      color: #ff6666;
+      font-weight: bold;
+      margin-bottom: 15px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.1s;
+    }
+
+    .comic-images,
+    .comic-video {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .comic-images img,
+    .comic-video video {
+      max-width: 600px;
+      width: 100%;
+      height: auto;
+      border: 2px solid #ff3333;
+      border-radius: 4px;
+      margin: 10px auto;
+      display: block;
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .comic-description {
+      font-size: 1em;
+      color: #ddd;
+      line-height: 1.4;
+      max-width: 600px;
+      margin: 15px auto 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.5s;
+      text-align: center;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Navegación */
+    nav.navigation {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .nav-button {
+      background: linear-gradient(#ff3333, #cc0000);
+      color: #fff;
+      padding: 8px 15px;
+      text-decoration: none;
+      border-radius: 4px;
+      margin: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 1rem;
+    }
+
+    .nav-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+    }
+
+    .nav-button.disabled,
+    .nav-button:disabled {
+      background: #555;
+      cursor: not-allowed;
+      box-shadow: none;
+      opacity: 0.5;
+    }
+
+    /* Texto informativo */
+    .texto {
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 1.1em;
+      color: #ccc;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .contacto {
+      margin: 20px 0;
+      font-size: 1.2em;
+      color: #ddd;
+      text-align: center;
+    }
+
+    .contacto a {
+      color: #ff3333;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .contacto a:hover {
+      color: #ff6666;
+      text-decoration: underline;
+    }
+
+    .separator {
+      width: 40%;
+      margin: 20px auto;
+      border-top: 1px solid #ff3333;
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+    }
+
+    /* Sección de comentarios */
+    #comments-section {
+      max-width: 600px;
+      margin: 40px auto;
+      text-align: left;
+      background: #1a0000;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    }
+
+    #comments-section h3 {
+      color: #ff3333;
+      font-family: "UnifrakturMaguntia", serif;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    #comments-list[aria-busy="true"] {
+      opacity: 0.5;
+    }
+
+    .comment {
+      background: #1a0000;
+      border: 1px solid #ff3333;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      word-break: break-word;
+    }
+
+    .comment b {
+      color: #ff6666;
+    }
+
+    .comment small {
+      color: #ccc;
+      float: right;
+      font-size: 0.8em;
+    }
+
+    .comment p {
+      color: #ddd;
+      margin: 5px 0 0;
+    }
+
+    .comment-form {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      border: 1px solid #555;
+      background: #000;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .comment-form button {
+      background: #ff3333;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .comment-form button:hover {
+      background: #cc0000;
+    }
+
+    /* Media queries para responsividad */
+    @media (max-width: 600px) {
+      .titulo {
+        font-size: 2rem;
+      }
+
+      .subtitulo {
+        font-size: 1.2rem;
+      }
+
+      .comic-title {
+        font-size: 1.5rem;
+      }
+
+      .comic-description {
+        font-size: 1rem;
+      }
+
+      .nav-button {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+      }
+
+      .btn-entrar {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+
+      #comments-section {
+        padding: 15px;
+      }
+
+      .comment-form input,
+      .comment-form textarea {
+        font-size: 0.9rem;
+      }
+
+      .comment-form button {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Pantalla de inicio -->
-  <div class="splash" id="splash-screen">
-    <div class="ghosts">
-      <img src="comics/intro.png" alt="fantasma" />
-      <img src="comics/intro.png" alt="fantasma" />
-      <img src="comics/intro.png" alt="fantasma" />
-      <img src="comics/intro.png" alt="fantasma" />
-      <img src="comics/intro.png" alt="fantasma" />
+  <div
+    class="splash"
+    id="splash-screen"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Pantalla de bienvenida"
+  >
+    <div class="ghosts" aria-hidden="true">
+      <img src="comics/intro.png" alt="" />
+      <img src="comics/intro.png" alt="" />
+      <img src="comics/intro.png" alt="" />
+      <img src="comics/intro.png" alt="" />
+      <img src="comics/intro.png" alt="" />
     </div>
     <div class="mensaje">No seas rata: que no llegue al pasillo. Que no te enganchen viéndolo</div>
     <button class="btn-entrar" id="btn-enter">Entrar</button>
   </div>
 
   <!-- Contenido principal -->
-  <div id="main-content">
-    <div class="header">
-      <div class="titulo">Historias de la Oficina Infernal</div>
-      <div class="subtitulo">Risas desde el Abismo Laboral</div>
-    </div>
+  <main id="main-content">
+    <header>
+      <h1 class="titulo">Historias de la Oficina Infernal</h1>
+      <p class="subtitulo">Risas desde el Abismo Laboral</p>
+    </header>
 
-    <div class="comic-container" id="comic-content"></div>
-    <div class="navigation" id="navigation"></div>
+    <section
+      class="comic-container"
+      id="comic-content"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <!-- El contenido de cada cómic se inyectará aquí -->
+    </section>
 
-    <div class="comments" id="comments-section">
-      <h3>Comentarios</h3>
-      <div id="comments-list">Cargando comentarios…</div>
-      <form id="comment-form" class="comment-form">
-        <input type="text" id="comment-name" placeholder="Tu nombre" required />
-        <textarea id="comment-text" placeholder="Tu comentario" rows="3" required></textarea>
+    <nav
+      class="navigation"
+      id="navigation"
+      aria-label="Navegación de cómics"
+    >
+      <!-- Botones de navegación se inyectarán aquí -->
+    </nav>
+
+    <section id="comments-section" aria-labelledby="comments-title">
+      <h3 id="comments-title">Comentarios</h3>
+      <div id="comments-list" role="region" aria-live="polite" aria-busy="true">
+        Cargando comentarios…
+      </div>
+      <form id="comment-form" class="comment-form" aria-label="Formulario de comentarios">
+        <input
+          type="text"
+          id="comment-name"
+          placeholder="Tu nombre"
+          maxlength="50"
+          required
+        />
+        <textarea
+          id="comment-text"
+          placeholder="Tu comentario"
+          rows="3"
+          maxlength="500"
+          required
+        ></textarea>
         <button type="submit">Publicar comentario</button>
       </form>
-    </div>
+    </section>
 
-    <div class="separator"></div>
+    <div class="separator" aria-hidden="true"></div>
+
     <div class="texto">
-      <p>¡Bienvenidos al lado oscuro de la oficina! Aquí encontrarás historias que capturan el caos y las risas del día a día laboral, con un toque infernal.</p>
+      <p>
+        ¡Bienvenidos al lado oscuro de la oficina! Aquí encontrarás historias que capturan
+        el caos y las risas del día a día laboral, con un toque infernal.
+      </p>
     </div>
-    <div class="separator"></div>
+
+    <div class="separator" aria-hidden="true"></div>
+
     <div class="contacto">
-      <p>¿Quieres colaborar o sugerir ideas? <a href="https://wa.me/5493413552108" target="_blank">Contáctanos: +54 9 341 355-2108</a></p>
+      <p>
+        ¿Quieres colaborar o sugerir ideas?
+        <a href="https://wa.me/5493413552108" target="_blank" rel="noopener">
+          Contáctanos: +54 9 341 355-2108
+        </a>
+      </p>
     </div>
-  </div>
+  </main>
 
+  <!-- Librería para sanitizar HTML en comentarios -->
+  <script src="https://unpkg.com/dompurify@2.4.0/dist/purify.es.js"></script>
+
+  <!-- Firebase (Realtime Database) -->
   <script type="module">
-    import { initializeApp }     from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-    import { getAnalytics }      from "https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import {
+      getDatabase,
+      ref,
+      push as firebasePush,
+      onValue,
+    } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
+    // Configuración de Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBSigzQvUmzQXtNlh5qB-kv9FnAJcyUOQc",
       authDomain: "bathoryoffice.firebaseapp.com",
       databaseURL: "https://bathoryoffice-default-rtdb.firebaseio.com",
       projectId: "bathoryoffice",
-      storageBucket: "bathoryoffice.firebasestorage.app",
+      storageBucket: "bathoryoffice.appspot.com",
       messagingSenderId: "727653891842",
       appId: "1:727653891842:web:5b686e6321c16af4db4c1b",
-      measurementId: "G-LDNCM0K4D9"
+      measurementId: "G-LDNCM0K4D9",
     };
 
     // Inicializo Firebase
-    const app       = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const db        = getDatabase(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    // Tus cómics
+    // Datos de los cómics
     const comics = [
-      { title:"No seamos sucios!", images:["comics/1.1.png","comics/1.2.png"], video:null, description:"NO SEAMOS COCHINOS! P.D: Queremos aumentos :)" },
-      { title:"GRAAAAHHH", images:["comics/2.png"], video:null, description:"¿Qué está pasando en el fondo del pasillo??!?!" },
-      { title:"Normas ISO", images:["comics/3.png"], video:null, description:"¿Hacía falta subirse así a la mesa??" },
-      { title:"Hoy es viernes", images:null, video:"comics/4.mp4", description:"Teorías de qué pasa los viernes?" },
-      { title:"Home Office", images:null, video:"comics/5.mp4", description:"¿Dónde aplico para homeoffice lunes y viernes???" },
-      { title:"Engendro", images:null, video:"comics/6.mp4", description:"Sospecho que de esta manera llego al mundo, sino no se explica" },
-      { 
-  title:"Hello Darkness my old friend", 
-  images:null, 
-  video:"comics/7.mp4", 
-  description: `<pre>
+      {
+        title: "No seamos sucios!",
+        images: ["comics/1.1.png", "comics/1.2.png"],
+        video: null,
+        description: "NO SEAMOS COCHINOS! P.D: Queremos aumentos :)",
+      },
+      {
+        title: "GRAAAAHHH",
+        images: ["comics/2.png"],
+        video: null,
+        description: "¿Qué está pasando en el fondo del pasillo??!?!",
+      },
+      {
+        title: "Normas ISO",
+        images: ["comics/3.png"],
+        video: null,
+        description: "¿Hacía falta subirse así a la mesa??",
+      },
+      {
+        title: "Hoy es viernes",
+        images: null,
+        video: "comics/4.mp4",
+        description: "Teorías de qué pasa los viernes?",
+      },
+      {
+        title: "Home Office",
+        images: null,
+        video: "comics/5.mp4",
+        description: "¿Dónde aplico para homeoffice lunes y viernes???",
+      },
+      {
+        title: "Engendro",
+        images: null,
+        video: "comics/6.mp4",
+        description: "Sospecho que de esta manera llego al mundo, sino no se explica",
+      },
+      {
+        title: "Hello Darkness my old friend",
+        images: null,
+        video: "comics/7.mp4",
+        description: `<pre>
 Hola, soledad, mi vieja amiga,  
 he venido a hablar contigo otra vez.  
 En esta oficina vacía estoy,  
@@ -167,89 +624,227 @@ Prometo cambiar, lo juro de verdad,
 aprenderé a conectar, a dar prioridad.  
 Pero, ¡vamos!, los demás han de entender,  
 que todo lo quiero para ayer.
-</pre>`
-},
-    { title:"Lockers", images:null, video:"comics/8.mp4", description:"Esta bien que esta prohibido, pero no podes armar tu oficina solo porque entras!" },
+</pre>`,
+      },
+      {
+        title: "Lockers",
+        images: null,
+        video: "comics/8.mp4",
+        description: "Esta bien que esta prohibido, pero no podes armar tu oficina solo porque entras!",
+      },
     ];
+
     let currentComicIndex = comics.length - 1;
 
-    // Mostrar contenido tras splash
-    const splash      = document.getElementById('splash-screen');
-    const mainContent = document.getElementById('main-content');
-    document.getElementById('btn-enter').addEventListener('click', () => {
-      splash.style.display         = 'none';
-      mainContent.style.display    = 'block';
-      document.body.style.overflow = 'auto'; // <-- Reactivar scroll
-      showComic(currentComicIndex);
-    });
+    // Elementos del DOM
+    const splash = document.getElementById("splash-screen");
+    const mainContent = document.getElementById("main-content");
+    const btnEnter = document.getElementById("btn-enter");
+    const comicContainer = document.getElementById("comic-content");
+    const navigation = document.getElementById("navigation");
+    const commentsList = document.getElementById("comments-list");
+    const commentForm = document.getElementById("comment-form");
+    const commentName = document.getElementById("comment-name");
+    const commentText = document.getElementById("comment-text");
 
     // Función para mostrar un cómic
     function showComic(i) {
       if (i < 0 || i >= comics.length) return;
       currentComicIndex = i;
       const c = comics[i];
-      let html = `<h2 class=\"comic-title\">${c.title}</h2>`;
-      if (c.images) c.images.forEach((src,j) => html += `<img src=\"${src}\" alt=\"\" style=\"animation-delay:${0.3 + j*0.2}s\">`);
-      if (c.video)  html += `<video controls autoplay muted loop style=\"animation-delay:0.4s\"><source src=\"${c.video}\" type=\"video/mp4\"></video>`;
-      html += `<p class=\"comic-description\">${c.description}</p>`;
-      document.getElementById('comic-content').innerHTML = html;
+
+      // Limpiar animaciones previas
+      comicContainer.innerHTML = "";
+
+      // Crear artículo de cómic
+      const article = document.createElement("article");
+      article.className = "comic";
+
+      // Título
+      const h2 = document.createElement("h2");
+      h2.className = "comic-title";
+      h2.textContent = c.title;
+      article.appendChild(h2);
+
+      // Imágenes (con lazy loading)
+      if (c.images) {
+        const imgWrapper = document.createElement("div");
+        imgWrapper.className = "comic-images";
+        c.images.forEach((src, j) => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = `Cómic: ${c.title}`;
+          img.loading = "lazy";
+          img.style.animationDelay = `${0.3 + j * 0.2}s`;
+          imgWrapper.appendChild(img);
+        });
+        article.appendChild(imgWrapper);
+      }
+
+      // Video (preload metadata, controls visibles)
+      if (c.video) {
+        const vidWrapper = document.createElement("div");
+        vidWrapper.className = "comic-video";
+        const video = document.createElement("video");
+        video.controls = true;
+        video.preload = "metadata";
+        video.style.animationDelay = "0.3s";
+        const source = document.createElement("source");
+        source.src = c.video;
+        source.type = "video/mp4";
+        video.appendChild(source);
+        vidWrapper.appendChild(video);
+        article.appendChild(vidWrapper);
+      }
+
+      // Descripción
+      const pDesc = document.createElement("p");
+      pDesc.className = "comic-description";
+      pDesc.innerHTML = c.description;
+      article.appendChild(pDesc);
+
+      comicContainer.appendChild(article);
+
       updateNav();
       loadComments(i);
     }
 
     // Función para actualizar la navegación
     function updateNav() {
-      const nav = document.getElementById('navigation');
-      let btns = '';
-      btns += `<a class=\"nav-button ${currentComicIndex===0?'disabled':''}\" ${currentComicIndex>0?`onclick=\"showComic(0)\"`:''}>Primera</a>`;
-      btns += `<a class=\"nav-button ${currentComicIndex===0?'disabled':''}\" ${currentComicIndex>0?`onclick=\"showComic(${currentComicIndex-1})\"`:''}>Anterior</a>`;
-      comics.forEach((_, idx) => btns += `<a class=\"nav-button ${idx===currentComicIndex?'disabled':''}\" ${idx!==currentComicIndex?`onclick=\"showComic(${idx})\"`:''}>${idx+1}</a>`);
-      btns += `<a class=\"nav-button ${currentComicIndex===comics.length-1?'disabled':''}\" ${currentComicIndex< comics.length-1?`onclick=\"showComic(${currentComicIndex+1})\"`:''}>Siguiente</a>`;
-      btns += `<a class=\"nav-button ${currentComicIndex===comics.length-1?'disabled':''}\" ${currentComicIndex< comics.length-1?`onclick=\"showComic(${comics.length-1})\"`:''}>Última</a>`;
-      nav.innerHTML = btns;
+      navigation.innerHTML = "";
+
+      const createButton = (label, handler, disabled = false) => {
+        const btn = document.createElement("button");
+        btn.textContent = label;
+        btn.className = "nav-button";
+        if (disabled) {
+          btn.disabled = true;
+          btn.classList.add("disabled");
+        } else {
+          btn.addEventListener("click", handler);
+        }
+        return btn;
+      };
+
+      // Primera
+      navigation.appendChild(
+        createButton("Primera", () => showComic(0), currentComicIndex === 0)
+      );
+      // Anterior
+      navigation.appendChild(
+        createButton(
+          "Anterior",
+          () => showComic(currentComicIndex - 1),
+          currentComicIndex === 0
+        )
+      );
+      // Botones numéricos
+      comics.forEach((_, idx) => {
+        navigation.appendChild(
+          createButton(
+            (idx + 1).toString(),
+            () => showComic(idx),
+            idx === currentComicIndex
+          )
+        );
+      });
+      // Siguiente
+      navigation.appendChild(
+        createButton(
+          "Siguiente",
+          () => showComic(currentComicIndex + 1),
+          currentComicIndex === comics.length - 1
+        )
+      );
+      // Última
+      navigation.appendChild(
+        createButton(
+          "Última",
+          () => showComic(comics.length - 1),
+          currentComicIndex === comics.length - 1
+        )
+      );
     }
 
-    // Función para cargar comentarios
+    // Cargar comentarios desde Firebase
     function loadComments(idx) {
-      const list = document.getElementById('comments-list');
-      list.innerHTML = 'Cargando comentarios…';
+      commentsList.setAttribute("aria-busy", "true");
+      commentsList.innerHTML = "Cargando comentarios…";
       const comentariosRef = ref(db, `comentarios/${idx}`);
-      onValue(comentariosRef, snap => {
-        const data = snap.val() || {};
-        list.innerHTML = '';
-        const keys = Object.keys(data);
-        if (!keys.length) {
-          list.innerHTML = '<p>No hay comentarios aún.</p>';
-          return;
-        }
-        keys.sort((a,b) => data[a].timestamp - data[b].timestamp).forEach(k => {
-          const c = data[k];
-          const div = document.createElement('div');
-          div.className = 'comment';
-          div.innerHTML = `<b>${escapeHTML(c.name)}</b> <small>${new Date(c.timestamp).toLocaleString()}</small><p>${escapeHTML(c.text)}</p>`;
-          list.appendChild(div);
-        });
-      });
+      onValue(
+        comentariosRef,
+        (snap) => {
+          const data = snap.val() || {};
+          commentsList.innerHTML = "";
+          const keys = Object.keys(data);
+          if (!keys.length) {
+            commentsList.innerHTML = "<p>No hay comentarios aún.</p>";
+            commentsList.setAttribute("aria-busy", "false");
+            return;
+          }
+          // Ordenar por timestamp
+          keys
+            .sort((a, b) => data[a].timestamp - data[b].timestamp)
+            .forEach((k) => {
+              const c = data[k];
+              const div = document.createElement("div");
+              div.className = "comment";
+
+              const nameEl = document.createElement("b");
+              nameEl.textContent = DOMPurify.sanitize(c.name);
+
+              const timeEl = document.createElement("small");
+              timeEl.textContent = new Date(c.timestamp).toLocaleString();
+
+              const textEl = document.createElement("p");
+              textEl.innerHTML = DOMPurify.sanitize(c.text);
+
+              div.appendChild(nameEl);
+              div.appendChild(timeEl);
+              div.appendChild(textEl);
+              commentsList.appendChild(div);
+            });
+          commentsList.setAttribute("aria-busy", "false");
+        },
+        { onlyOnce: true }
+      );
     }
 
     // Envío de comentarios
-    document.getElementById('comment-form').addEventListener('submit', e => {
+    commentForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const name = document.getElementById('comment-name').value.trim();
-      const text = document.getElementById('comment-text').value.trim();
-      if (!name || !text) return;
-      push(ref(db, `comentarios/${currentComicIndex}`), { name, text, timestamp: Date.now() })
-        .then(() => document.getElementById('comment-text').value = '');
+      const rawName = commentName.value.trim();
+      const rawText = commentText.value.trim();
+      if (!rawName || !rawText) return;
+      if (rawName.length > 50) {
+        return alert("El nombre no puede superar los 50 caracteres.");
+      }
+      if (rawText.length > 500) {
+        return alert("El comentario es demasiado largo (máx. 500 caracteres).");
+      }
+      const safeName = DOMPurify.sanitize(rawName);
+      const safeText = DOMPurify.sanitize(rawText);
+      const newCommentRef = ref(db, `comentarios/${currentComicIndex}`);
+      firebasePush(newCommentRef, {
+        name: safeName,
+        text: safeText,
+        timestamp: Date.now(),
+      }).then(() => {
+        commentText.value = "";
+        loadComments(currentComicIndex);
+      });
     });
 
-    // Escape de HTML
-    function escapeHTML(s) {
-      return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    }
-
-    // Exponer al global para los onclick
-    window.showComic = showComic;
-    window.updateNav  = updateNav;
+    // Manejo del splash screen con fade-out
+    btnEnter.addEventListener("click", () => {
+      splash.classList.add("fade-out");
+      setTimeout(() => {
+        splash.style.display = "none";
+        mainContent.style.display = "block";
+        document.body.style.overflow = "auto"; // Reactivar scroll
+        showComic(currentComicIndex);
+      }, 500);
+    });
   </script>
 </body>
 </html>
