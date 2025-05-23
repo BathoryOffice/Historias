@@ -8,71 +8,277 @@
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 
   <style>
-    body { background-color: #000; color: #fff; font-family: 'Arial', sans-serif; text-align: center; margin: 0; padding: 0; overflow: hidden; }
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
 
     /* Splash Screen */
     .splash {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
       background: radial-gradient(circle at center, #2a0000, #000);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; padding: 20px; z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 20px;
+      z-index: 10;
     }
     .splash .mensaje {
       font-family: 'UnifrakturMaguntia', serif;
-      font-size: 2em; color: #ff3333;
+      font-size: 2em;
+      color: #ff3333;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
       margin-bottom: 30px;
-      position: relative; z-index: 12;
+      position: relative;
+      z-index: 12;
     }
     .btn-entrar {
       background: linear-gradient(#ff3333,#cc0000);
-      color: #fff; padding: 15px 30px; font-size: 1.2em;
-      border: none; border-radius: 4px;
-      cursor: pointer; box-shadow: 0 0 10px rgba(255,0,0,0.7);
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255,0,0,0.7);
       transition: transform .2s, box-shadow .2s;
-      position: relative; z-index: 12;
+      position: relative;
+      z-index: 12;
     }
-    .btn-entrar:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(255,0,0,0.9); }
+    .btn-entrar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255,0,0,0.9);
+    }
 
     /* Fantasmas animados con imagen */
-    .ghosts { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
-    .ghosts img { position: absolute; bottom: -150px; width: 80px; opacity: 0.8; animation: floatUp 6s ease-in infinite; }
+    .ghosts {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .ghosts img {
+      position: absolute;
+      bottom: -150px;
+      width: 80px;
+      opacity: 0.8;
+      animation: floatUp 6s ease-in infinite;
+    }
     .ghosts img:nth-child(1) { left: 10%; animation-delay: 0s; }
     .ghosts img:nth-child(2) { left: 30%; animation-delay: 1.5s; }
     .ghosts img:nth-child(3) { left: 50%; animation-delay: 3s; }
     .ghosts img:nth-child(4) { left: 70%; animation-delay: 0.8s; }
     .ghosts img:nth-child(5) { left: 90%; animation-delay: 2.5s; }
-    @keyframes floatUp { 0% { bottom: -150px; opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } 100% { bottom: 110%; opacity: 0; transform: scale(0.5); } }
+    @keyframes floatUp {
+      0% { bottom: -150px; opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+      100% { bottom: 110%; opacity: 0; transform: scale(0.5); }
+    }
 
     /* Contenido principal oculto inicialmente */
     #main-content { display: none; }
 
     /* Resto de estilos originales */
-    .header { background: radial-gradient(circle at center, #2a0000, #000); padding: 40px 20px; border-bottom: 2px solid #ff3333; box-shadow: 0 0 20px rgba(255,0,0,0.5); margin-bottom: 30px; }
-    .titulo { font-size: 3em; color: #ff3333; font-family: 'UnifrakturMaguntia', serif; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin: 0; line-height: 1; }
-    .subtitulo { font-size: 1.5em; color: #ff6666; font-style: italic; margin: 8px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-    .comic-container { max-width: 800px; margin: 0 auto 30px; background: #1a0000; padding: 25px; border-radius: 10px; box-shadow: 0 0 15px rgba(255,0,0,0.4); overflow: hidden; }
-    .comic-title, .comic-description, .comic-container img, .comic-container video { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.6s ease forwards; }
-    .comic-title { font-size: 2em; color: #ff6666; font-weight: bold; margin-bottom: 15px; animation-delay: 0.1s; }
-    .comic-container img, .comic-container video { max-width: 600px; width: 100%; height: auto; border: 2px solid #ff3333; border-radius: 4px; margin: 10px auto; display: block; box-shadow: 0 0 8px rgba(255,0,0,0.5); animation-delay: 0.3s; }
-    .comic-description { font-size: 1em; color: #ddd; line-height: 1.4; max-width: 600px; margin: 15px auto 0; animation-delay: 0.5s; }
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-    .navigation { margin: 20px 0; }
-    .nav-button { background: linear-gradient(#ff3333,#cc0000); color: #fff; padding: 8px 15px; text-decoration: none; border-radius: 4px; margin: 4px; font-weight: bold; cursor: pointer; transition: transform .2s, box-shadow .2s; }
-    .nav-button:hover { transform: scale(1.05); box-shadow: 0 0 8px rgba(255,0,0,0.8); }
-    .nav-button.disabled { background: #555; cursor: not-allowed; box-shadow: none; }
-    .texto { max-width: 600px; margin: 20px auto; font-size: 1.1em; color: #ccc; line-height: 1.5; }
-    .contacto { margin: 20px 0; font-size: 1.2em; color: #ddd; }
-    .contacto a { color: #ff3333; text-decoration: none; font-weight: bold; transition: color .3s; }
-    .contacto a:hover { color: #ff6666; text-decoration: underline; }
-    .separator { width: 40%; margin: 20px auto; border-top: 1px solid #ff3333; box-shadow: 0 0 8px rgba(255,0,0,0.5); }
-    .comments { max-width: 600px; margin: 40px auto; text-align: left; }
-    .comments h3 { color: #ff3333; font-family: 'UnifrakturMaguntia', serif; }
-    .comment { background: #1a0000; border: 1px solid #ff3333; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
-    .comment b { color: #ff6666; }
-    .comment p { color: #ddd; margin: 5px 0 0; }
-    .comment-form input, .comment-form textarea { width: 100%; padding: 8px; margin: 5px 0; border-radius: 4px; border: 1px solid #555; background: #000; color: #fff; }
-    .comment-form button { background: #ff3333; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+    .header {
+      background: radial-gradient(circle at center, #2a0000, #000);
+      padding: 40px 20px;
+      border-bottom: 2px solid #ff3333;
+      box-shadow: 0 0 20px rgba(255,0,0,0.5);
+      margin-bottom: 30px;
+    }
+    .titulo {
+      font-size: 3em;
+      color: #ff3333;
+      font-family: 'UnifrakturMaguntia', serif;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+      margin: 0;
+      line-height: 1;
+    }
+    .subtitulo {
+      font-size: 1.5em;
+      color: #ff6666;
+      font-style: italic;
+      margin: 8px 0;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    .comic-container {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      background: #1a0000;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255,0,0,0.4);
+      overflow: hidden;
+    }
+    .comic-title, .comic-description,
+    .comic-container img, .comic-container video {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .comic-title {
+      font-size: 2em;
+      color: #ff6666;
+      font-weight: bold;
+      margin-bottom: 15px;
+      animation-delay: 0.1s;
+    }
+    .comic-container img, .comic-container video {
+      max-width: 600px;
+      width: 100%;
+      height: auto;
+      border: 2px solid #ff3333;
+      border-radius: 4px;
+      margin: 10px auto;
+      display: block;
+      box-shadow: 0 0 8px rgba(255,0,0,0.5);
+      animation-delay: 0.3s;
+    }
+    .comic-description {
+      font-size: 1em;
+      color: #ddd;
+      line-height: 1.4;
+      max-width: 600px;
+      margin: 15px auto 0;
+      animation-delay: 0.5s;
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .navigation {
+      margin: 20px 0;
+    }
+    .nav-button {
+      background: linear-gradient(#ff3333,#cc0000);
+      color: #fff;
+      padding: 8px 15px;
+      text-decoration: none;
+      border-radius: 4px;
+      margin: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .nav-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 8px rgba(255,0,0,0.8);
+    }
+    .nav-button.disabled {
+      background: #555;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .texto {
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 1.1em;
+      color: #ccc;
+      line-height: 1.5;
+    }
+    .contacto {
+      margin: 20px 0;
+      font-size: 1.2em;
+      color: #ddd;
+    }
+    .contacto a {
+      color: #ff3333;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color .3s;
+    }
+    .contacto a:hover {
+      color: #ff6666;
+      text-decoration: underline;
+    }
+    .separator {
+      width: 40%;
+      margin: 20px auto;
+      border-top: 1px solid #ff3333;
+      box-shadow: 0 0 8px rgba(255,0,0,0.5);
+    }
+
+    /* Comentarios */
+    .comments {
+      max-width: 600px;
+      margin: 40px auto;
+      text-align: left;
+    }
+    .comments h3 {
+      color: #ff3333;
+      font-family: 'UnifrakturMaguntia', serif;
+    }
+    .comment {
+      background: #1a0000;
+      border: 1px solid #ff3333;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .comment b {
+      color: #ff6666;
+    }
+    .comment p {
+      color: #ddd;
+      margin: 5px 0 0;
+    }
+    .comment-form input,
+    .comment-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      border: 1px solid #555;
+      background: #000;
+      color: #fff;
+    }
+    .comment-form button {
+      background: #ff3333;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Suscripción */
+    .subscribe {
+      max-width: 600px;
+      margin: 20px auto 40px;
+      text-align: left;
+    }
+    .subscribe h3 {
+      color: #ff3333;
+      font-family: 'UnifrakturMaguntia', serif;
+      margin-bottom: 10px;
+    }
+    .subscribe-form input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      border: 1px solid #555;
+      background: #000;
+      color: #fff;
+    }
+    .subscribe-form button {
+      background: #ff3333;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -99,6 +305,7 @@
     <div class="comic-container" id="comic-content"></div>
     <div class="navigation" id="navigation"></div>
 
+    <!-- Sección de Comentarios -->
     <div class="comments" id="comments-section">
       <h3>Comentarios</h3>
       <div id="comments-list">Cargando comentarios…</div>
@@ -106,6 +313,15 @@
         <input type="text" id="comment-name" placeholder="Tu nombre" required />
         <textarea id="comment-text" placeholder="Tu comentario" rows="3" required></textarea>
         <button type="submit">Publicar comentario</button>
+      </form>
+    </div>
+
+    <!-- Sección de Suscripción (debajo de Comentarios) -->
+    <div class="subscribe" id="subscribe-section">
+      <h3>Suscribite</h3>
+      <form id="subscribe-form" class="subscribe-form">
+        <input type="email" id="subscribe-email" placeholder="Tu correo" required />
+        <button type="submit">Suscribite</button>
       </form>
     </div>
 
@@ -142,17 +358,22 @@
 
     // Tus cómics
     const comics = [
-      { title:"No seamos sucios!", images:["comics/1.1.png","comics/1.2.png"], video:null, description:"NO SEAMOS COCHINOS! P.D: Queremos aumentos :)" },
-      { title:"GRAAAAHHH", images:["comics/2.png"], video:null, description:"¿Qué está pasando en el fondo del pasillo??!?!" },
-      { title:"Normas ISO", images:["comics/3.png"], video:null, description:"¿Hacía falta subirse así a la mesa??" },
-      { title:"Hoy es viernes", images:null, video:"comics/4.mp4", description:"Teorías de qué pasa los viernes?" },
-      { title:"Home Office", images:null, video:"comics/5.mp4", description:"¿Dónde aplico para homeoffice lunes y viernes???" },
-      { title:"Engendro", images:null, video:"comics/6.mp4", description:"Sospecho que de esta manera llego al mundo, sino no se explica" },
-      { 
-  title:"Hello Darkness my old friend.", 
-  images:null, 
-  video:"comics/7.mp4", 
-  description: `<pre>
+      {
+        title: "No seamos sucios!",
+        images: ["comics/1.1.png","comics/1.2.png"],
+        video: null,
+        description: "NO SEAMOS COCHINOS! P.D: Queremos aumentos :)"
+      },
+      { title: "GRAAAAHHH", images: ["comics/2.png"], video: null, description: "¿Qué está pasando en el fondo del pasillo??!?!" },
+      { title: "Normas ISO", images: ["comics/3.png"], video: null, description: "¿Hacía falta subirse así a la mesa??" },
+      { title: "Hoy es viernes", images: null, video: "comics/4.mp4", description: "Teorías de qué pasa los viernes?" },
+      { title: "Home Office", images: null, video: "comics/5.mp4", description: "¿Dónde aplico para homeoffice lunes y viernes???" },
+      { title: "Engendro", images: null, video: "comics/6.mp4", description: "Sospecho que de esta manera llego al mundo, sino no se explica" },
+      {
+        title: "Hello Darkness my old friend.",
+        images: null,
+        video: "comics/7.mp4",
+        description: `<pre>
 Hola, soledad, mi vieja amiga,  
 he venido a hablar contigo otra vez.  
 En esta oficina vacía estoy,  
@@ -168,8 +389,8 @@ aprenderé a conectar, a dar prioridad.
 Pero, ¡vamos!, los demás han de entender,  
 que todo lo quiero para ayer.
 </pre>`
-},
-    { title:"Lockers", images:null, video:"comics/8.mp4", description:"Esta bien que esta prohibido, pero no podes armar tu oficina solo porque entras!" },
+      },
+      { title: "Lockers", images: null, video: "comics/8.mp4", description: "Está bien que está prohibido, pero no podés armar tu oficina solo porque entras!" }
     ];
     let currentComicIndex = comics.length - 1;
 
@@ -179,7 +400,7 @@ que todo lo quiero para ayer.
     document.getElementById('btn-enter').addEventListener('click', () => {
       splash.style.display         = 'none';
       mainContent.style.display    = 'block';
-      document.body.style.overflow = 'auto'; // <-- Reactivar scroll
+      document.body.style.overflow = 'auto'; // Reactivar scroll
       showComic(currentComicIndex);
     });
 
@@ -188,10 +409,18 @@ que todo lo quiero para ayer.
       if (i < 0 || i >= comics.length) return;
       currentComicIndex = i;
       const c = comics[i];
-      let html = `<h2 class=\"comic-title\">${c.title}</h2>`;
-      if (c.images) c.images.forEach((src,j) => html += `<img src=\"${src}\" alt=\"\" style=\"animation-delay:${0.3 + j*0.2}s\">`);
-      if (c.video)  html += `<video controls autoplay muted loop style=\"animation-delay:0.4s\"><source src=\"${c.video}\" type=\"video/mp4\"></video>`;
-      html += `<p class=\"comic-description\">${c.description}</p>`;
+      let html = `<h2 class="comic-title">${c.title}</h2>`;
+      if (c.images) {
+        c.images.forEach((src, j) => {
+          html += `<img src="${src}" alt="" style="animation-delay:${0.3 + j*0.2}s">`;
+        });
+      }
+      if (c.video) {
+        html += `<video controls autoplay muted loop style="animation-delay:0.4s">
+                   <source src="${c.video}" type="video/mp4">
+                 </video>`;
+      }
+      html += `<p class="comic-description">${c.description}</p>`;
       document.getElementById('comic-content').innerHTML = html;
       updateNav();
       loadComments(i);
@@ -201,15 +430,17 @@ que todo lo quiero para ayer.
     function updateNav() {
       const nav = document.getElementById('navigation');
       let btns = '';
-      btns += `<a class=\"nav-button ${currentComicIndex===0?'disabled':''}\" ${currentComicIndex>0?`onclick=\"showComic(0)\"`:''}>Primera</a>`;
-      btns += `<a class=\"nav-button ${currentComicIndex===0?'disabled':''}\" ${currentComicIndex>0?`onclick=\"showComic(${currentComicIndex-1})\"`:''}>Anterior</a>`;
-      comics.forEach((_, idx) => btns += `<a class=\"nav-button ${idx===currentComicIndex?'disabled':''}\" ${idx!==currentComicIndex?`onclick=\"showComic(${idx})\"`:''}>${idx+1}</a>`);
-      btns += `<a class=\"nav-button ${currentComicIndex===comics.length-1?'disabled':''}\" ${currentComicIndex< comics.length-1?`onclick=\"showComic(${currentComicIndex+1})\"`:''}>Siguiente</a>`;
-      btns += `<a class=\"nav-button ${currentComicIndex===comics.length-1?'disabled':''}\" ${currentComicIndex< comics.length-1?`onclick=\"showComic(${comics.length-1})\"`:''}>Última</a>`;
+      btns += `<a class="nav-button ${currentComicIndex === 0 ? 'disabled' : ''}" ${currentComicIndex > 0 ? `onclick="showComic(0)"` : ''}>Primera</a>`;
+      btns += `<a class="nav-button ${currentComicIndex === 0 ? 'disabled' : ''}" ${currentComicIndex > 0 ? `onclick="showComic(${currentComicIndex - 1})"` : ''}>Anterior</a>`;
+      comics.forEach((_, idx) => {
+        btns += `<a class="nav-button ${idx === currentComicIndex ? 'disabled' : ''}" ${idx !== currentComicIndex ? `onclick="showComic(${idx})"` : ''}>${idx + 1}</a>`;
+      });
+      btns += `<a class="nav-button ${currentComicIndex === comics.length - 1 ? 'disabled' : ''}" ${currentComicIndex < comics.length - 1 ? `onclick="showComic(${currentComicIndex + 1})"` : ''}>Siguiente</a>`;
+      btns += `<a class="nav-button ${currentComicIndex === comics.length - 1 ? 'disabled' : ''}" ${currentComicIndex < comics.length - 1 ? `onclick="showComic(${comics.length - 1})"` : ''}>Última</a>`;
       nav.innerHTML = btns;
     }
 
-    // Función para cargar comentarios
+    // Función para cargar comentarios desde Firebase
     function loadComments(idx) {
       const list = document.getElementById('comments-list');
       list.innerHTML = 'Cargando comentarios…';
@@ -222,32 +453,55 @@ que todo lo quiero para ayer.
           list.innerHTML = '<p>No hay comentarios aún.</p>';
           return;
         }
-        keys.sort((a,b) => data[a].timestamp - data[b].timestamp).forEach(k => {
-          const c = data[k];
-          const div = document.createElement('div');
-          div.className = 'comment';
-          div.innerHTML = `<b>${escapeHTML(c.name)}</b> <small>${new Date(c.timestamp).toLocaleString()}</small><p>${escapeHTML(c.text)}</p>`;
-          list.appendChild(div);
-        });
+        keys
+          .sort((a, b) => data[a].timestamp - data[b].timestamp)
+          .forEach(k => {
+            const c = data[k];
+            const div = document.createElement('div');
+            div.className = 'comment';
+            div.innerHTML = `<b>${escapeHTML(c.name)}</b> <small>${new Date(c.timestamp).toLocaleString()}</small>
+                             <p>${escapeHTML(c.text)}</p>`;
+            list.appendChild(div);
+          });
       });
     }
 
-    // Envío de comentarios
+    // Envío de nuevos comentarios a Firebase
     document.getElementById('comment-form').addEventListener('submit', e => {
       e.preventDefault();
       const name = document.getElementById('comment-name').value.trim();
       const text = document.getElementById('comment-text').value.trim();
       if (!name || !text) return;
-      push(ref(db, `comentarios/${currentComicIndex}`), { name, text, timestamp: Date.now() })
-        .then(() => document.getElementById('comment-text').value = '');
+      push(ref(db, `comentarios/${currentComicIndex}`), {
+        name,
+        text,
+        timestamp: Date.now()
+      }).then(() => {
+        document.getElementById('comment-text').value = '';
+      });
     });
 
-    // Escape de HTML
+    // Función para escapar caracteres HTML
     function escapeHTML(s) {
-      return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      return s.replace(/[&<>"']/g, c =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
+      );
     }
 
-    // Exponer al global para los onclick
+    // (Opcional) Manejo del formulario de suscripción
+    document.getElementById('subscribe-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const email = document.getElementById('subscribe-email').value.trim();
+      if (!email) return;
+      // Aquí podrías insertar la lógica para procesar la suscripción, e.g.:
+      // - Enviar a tu endpoint de n8n
+      // - Guardar en Fireconsole
+      // Por ahora, mostramos un mensaje de confirmación simple.
+      alert('¡Gracias por suscribirte con ' + email + '!');
+      document.getElementById('subscribe-email').value = '';
+    });
+
+    // Exponer las funciones para los onclick en los botones de navegación
     window.showComic = showComic;
     window.updateNav  = updateNav;
   </script>
